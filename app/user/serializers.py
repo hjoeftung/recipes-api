@@ -5,9 +5,7 @@ from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """
-    Serializer for the user object
-    """
+    """Serializer for the user object"""
     class Meta:
         model = get_user_model()
         fields = ('email', 'password', 'name')
@@ -32,9 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class AuthTokenSerializer(serializers.Serializer):
-    """
-    Serializer for the user authentication object
-    """
+    """Serializer for the user authentication object"""
     email = serializers.EmailField()
     password = serializers.CharField(
         style={'input_type': 'password'},
