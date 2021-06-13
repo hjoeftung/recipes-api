@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase
-
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -26,6 +25,7 @@ def create_user(email='test@hjoeftung.org', password='hackme', name='Vasyan'):
 
 class TagsAPIPublicTests(TestCase):
     """Test the public tags API"""
+
     def test_get_tags_list_unauthorized(self):
         """Test that unauthorized user cannot get tags list"""
         self.client = APIClient()
