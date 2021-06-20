@@ -19,7 +19,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/', include('user.urls')),
-    path('api/recipes', include('recipes.urls')),
+    path('api/recipe/', include('recipes.urls')),
     re_path(r'swagger\.(json|yaml)',
             schema_view.without_ui(cache_timeout=0),
             name='schema-json'),

@@ -8,7 +8,7 @@ from core.models import Ingredient
 from recipes.serializers import IngredientSerializer
 
 
-INGREDIENTS_URL = reverse('recipes:ingredient-list')
+INGREDIENTS_URL = reverse('recipe:ingredient-list')
 
 
 class PublicIngredientsAPITests(TestCase):
