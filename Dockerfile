@@ -25,7 +25,5 @@ WORKDIR /app
 RUN mkdir -p /vol/web/media /vol/web/static
 RUN adduser -D noone && \
     chown -R noone /vol/ && \
-    chmod -R 755 /vol/web && \
-    chown -R noone core/migrations/ && \
-    chmod -R 755 core/migrations/
+    chmod -R 755 /vol/web
 USER noone
