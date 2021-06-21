@@ -71,7 +71,7 @@ class PrivateRecipeAPITests(TestCase):
         sample_recipe(user=self.user)
 
         response = self.client.get(RECIPES_URL)
-        recipes = Recipe.objects.all().order_by('-id')
+        recipes = Recipe.objects.all()
         serializer = RecipeSerializer(recipes, many=True)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -88,8 +88,7 @@ class PrivateRecipeAPITests(TestCase):
         sample_recipe(user=self.user, title='fish and chips')
         response = self.client.get(RECIPES_URL)
 
-        recipes = Recipe.objects.all().filter(
-            user=self.user).order_by('-id')
+        recipes = Recipe.objects.all().filter(user=self.user)
         serializer = RecipeSerializer(recipes, many=True)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -189,6 +188,50 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(recipe.price, payload['price'])
         tags = recipe.tags.all()
         self.assertEqual(tags.count(), 0)
+
+    def test_filter_recipes_by_tag(self):
+        """Test returning recipe with specific tags"""
+        recipe1 = sample_recipe(user=self.user, title='Thai vegetable curry')
+        recipe2 = sample_recipe(user=self.user, title='Aubergine')
+        tag1 = sample_tag(user=self.user, name='vegan')
+        tag2 = sample_tag(user=self.user, name='vegetarian')
+        recipe1.tags.add(tag1)
+        recipe2.tags.add(tag2)
+        recipe3 = sample_recipe(user=self.user, title='fish and chips')
+
+        response = self.client.get(
+            RECIPES_URL,
+            {'tags': f'{tag1.id}, {tag2.id}'}
+        )
+
+        serializer1 = RecipeSerializer(recipe1)
+        serializer2 = RecipeSerializer(recipe2)
+        serializer3 = RecipeSerializer(recipe3)
+        self.assertIn(serializer1.data, response.data)
+        self.assertIn(serializer2.data, response.data)
+        self.assertNotIn(serializer3.data, response.data)
+
+    def test_filter_recipes_by_ingredients(self):
+        """Test returning recipe with specific ingredients"""
+        recipe1 = sample_recipe(user=self.user, title='banana cocktail')
+        recipe2 = sample_recipe(user=self.user, title='chocolate muffin')
+        ingredient1 = sample_ingredient(user=self.user, name='banana')
+        ingredient2 = sample_ingredient(user=self.user, name='chocolate')
+        recipe1.ingredients.add(ingredient1)
+        recipe2.ingredients.add(ingredient2)
+        recipe3 = sample_recipe(user=self.user, title='stewed mushrooms')
+
+        response = self.client.get(
+            RECIPES_URL,
+            {'ingredients': f'{ingredient1.id}, {ingredient2.id}'}
+        )
+        serializer1 = RecipeSerializer(recipe1)
+        serializer2 = RecipeSerializer(recipe2)
+        serializer3 = RecipeSerializer(recipe3)
+
+        self.assertIn(serializer1.data, response.data)
+        self.assertIn(serializer2.data, response.data)
+        self.assertNotIn(serializer3.data, response.data)
 
 
 class RecipeImageUploadTests(TestCase):
