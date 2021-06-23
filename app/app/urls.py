@@ -7,15 +7,15 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Recipes API",
-      default_version='0.0.1a',
-      description="Basic API for recipes",
-      contact=openapi.Contact(email="sto-ton@yandex.ru"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Recipes API",
+        default_version='0.0.1a',
+        description="Basic API for recipes",
+        contact=openapi.Contact(email="sto-ton@yandex.ru"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
