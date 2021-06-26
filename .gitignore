@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/nginx/51.116.177.181.pem
+/nginx/51.116.177.181-client.pem
+/nginx/51.116.177.181-client-key.pem
+/nginx/51.116.177.181-key.pem
