@@ -8,4 +8,3 @@ ALLOWED_HOSTS = [host for host in os.getenv('ALLOWED_HOSTS').split(', ')]
 DEBUG = False
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
