@@ -22,8 +22,5 @@ ENV RUNTIME_DPS="libpq jpeg-dev"
 RUN apk add --update --no-cache $RUNTIME_DPS
 
 WORKDIR /app
-RUN mkdir -p /vol/web/media /vol/web/static
-RUN adduser -D noone && \
-    chown -R noone /vol/ && \
-    chmod -R 755 /vol/web
+RUN adduser -D noone
 USER noone
